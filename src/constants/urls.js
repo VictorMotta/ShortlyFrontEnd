@@ -1,4 +1,1 @@
-import dotenv from "dotenv";
-dotenv.config();
-
-export const BASE_URL = process.env.BASE_URL || "https://localhost:4000";
+export const BASE_URL = 'https://shortly-back-end-fsud.onrender.com';

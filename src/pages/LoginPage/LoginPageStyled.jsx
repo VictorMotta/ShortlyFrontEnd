@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { MODEL_COLOR } from "../../constants/colors";
 
-export const MainContainerCadastroStyled = styled.div`
+export const MainContainerLoginStyled = styled.div`
   width: 100%;
   min-height: 80vh;
   max-height: 100vh;
@@ -10,14 +10,14 @@ export const MainContainerCadastroStyled = styled.div`
   align-items: center;
 `;
 
-export const FormCadastroStyled = styled.form`
+export const FormLoginStyled = styled.form`
   width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-export const InputCadastroStyled = styled.input`
+export const InputLoginStyled = styled.input`
   width: 100%;
   background: #ffffff;
   border: 1px solid rgba(120, 177, 89, 0.25);
@@ -41,7 +41,7 @@ export const InputCadastroStyled = styled.input`
   }
 `;
 
-export const ButtonCadastroStyled = styled.button`
+export const ButtonLoginStyled = styled.button`
   background: ${MODEL_COLOR};
   border-radius: 12px;
   padding: 21px 55px;

@@ -1,5 +1,5 @@
-import { createContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { createContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
@@ -7,10 +7,11 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const recoveredUser = localStorage.getItem("user");
+    const recoveredUser = localStorage.getItem('user');
 
     if (recoveredUser) {
       const recoveredUserJson = JSON.parse(recoveredUser);
@@ -20,30 +21,43 @@ export const AuthProvider = ({ children }) => {
     }
 
     setLoading(false);
-  }, []);
+  }, [loading]);
 
   const login = (data) => {
     const loggedUser = data;
 
-    localStorage.setItem("user", JSON.stringify(loggedUser));
+    localStorage.setItem('user', JSON.stringify(loggedUser));
 
+    setToken((item) => (item = data.token));
     delete loggedUser.token;
-    setUser(loggedUser);
-    setToken(data.token);
+    setUser((item) => (item = data.user));
 
-    navigate("/");
+    setLoading(true);
+
+    navigate('/');
   };
 
   const logout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem('user');
     setUser(null);
     setToken(null);
-    navigate("/");
+    navigate('/');
   };
 
   return (
-    <AuthContext.Provider value={{ authenticated: !!user, user, token, login, logout, loading }}>
-      {children};
+    <AuthContext.Provider
+      value={{
+        authenticated: !!user,
+        user,
+        token,
+        login,
+        logout,
+        loading,
+        currentPage,
+        setCurrentPage,
+      }}
+    >
+      {children}
     </AuthContext.Provider>
   );
 };
