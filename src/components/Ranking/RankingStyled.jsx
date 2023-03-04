@@ -60,3 +60,15 @@ export const LinkCadastroStyled = styled(Link)`
   text-decoration: none;
   cursor: pointer;
 `;
+
+export const H1InfoNoRankingStyled = styled.h1`
+  width: 100%;
+  font-family: 'Lexend Deca';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 28px;
+  color: ${MODEL_COLOR};
+  margin-bottom: 13px;
+  text-align: center;
+`;

@@ -7,6 +7,7 @@ import {
   ContainerInfoRankingStyled,
   H1InfoRankingStyled,
   LinkCadastroStyled,
+  H1InfoNoRankingStyled,
 } from './RankingStyled';
 import { useEffect, useState, useContext } from 'react';
 import React from 'react';
@@ -15,7 +16,7 @@ import apiRanking from '../../services/apiRanking';
 import { AuthContext } from '../../context/authContext';
 
 const Ranking = () => {
-  const [rankingInfo, setRankingInfo] = useState([]);
+  const [rankingInfo, setRankingInfo] = useState(undefined);
   const { authenticated } = useContext(AuthContext);
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const Ranking = () => {
       .getRanking()
       .then((res) => {
         setRankingInfo(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         alert(err.data.response);
@@ -33,6 +35,8 @@ const Ranking = () => {
     return <>...Carregando!</>;
   }
 
+  console.log(rankingInfo);
+
   return (
     <MainContainerRankingStyled>
       <ContainerTitleStyled>
@@ -42,12 +46,16 @@ const Ranking = () => {
         <TitleLetterStyled>Ranking</TitleLetterStyled>
       </ContainerTitleStyled>
       <ContainerInfoRankingStyled>
-        {rankingInfo.map((item, i) => (
-          <H1InfoRankingStyled key={i}>
-            {i + 1}. {item.name} - {numeral(item.linksCount).format('0,0').replace(/,/g, '.')} links
-            - {numeral(item.visitCount).format('0,0').replace(/,/g, '.')} visualizações
-          </H1InfoRankingStyled>
-        ))}
+        {rankingInfo.length === 0 ? (
+          <H1InfoNoRankingStyled>Nenhum usuário com links cadastrado!</H1InfoNoRankingStyled>
+        ) : (
+          rankingInfo.map((item, i) => (
+            <H1InfoRankingStyled key={i}>
+              {i + 1}. {item.name} - {numeral(item.linksCount).format('0,0').replace(/,/g, '.')}{' '}
+              links - {numeral(item.visitCount).format('0,0').replace(/,/g, '.')} visualizações
+            </H1InfoRankingStyled>
+          ))
+        )}
       </ContainerInfoRankingStyled>
       <LinkCadastroStyled to='/cadastro'>
         {!authenticated && <>Crie sua conta para usar nosso serviço!</>}
