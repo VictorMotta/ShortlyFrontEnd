@@ -61,7 +61,7 @@ const LoginPage = () => {
           value={form.password}
           onChange={editForm}
         />
-        <ButtonLoginStyled type='submit'>Criar Conta</ButtonLoginStyled>
+        <ButtonLoginStyled type='submit'>Login</ButtonLoginStyled>
       </FormLoginStyled>
     </MainContainerLoginStyled>
   );
